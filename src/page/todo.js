@@ -6,13 +6,15 @@ class Todo extends React.Component {
     super(props);
     this.state = {
       tasks: localStorage.getItem("myCat")
-        ? localStorage.getItem("myCat").split(",")
+        ? JSON.parse(localStorage.getItem("myCat"))
         : [],
       newTask: "",
     };
   }
-
-  componentDidMount() {}
+  componentDidUpdate() {
+    console.log("maladec");
+    localStorage.setItem("myCat", JSON.stringify(this.state.tasks));
+  }
 
   add = () => {
     console.log(this.state.newTask);
@@ -24,11 +26,22 @@ class Todo extends React.Component {
         ],
         newTask: "",
       });
+      localStorage.setItem(
+        "myCat",
+        JSON.stringify([
+          ...this.state.tasks,
+          { value: this.state.newTask, isprocess: false },
+        ])
+      );
     }
   };
 
   onChangeHandler = (event) => {
     this.setState({ newTask: event.target.value });
+  };
+
+  setItem = (data) => {
+    localStorage.setItem("myCat", JSON.stringify(data));
   };
 
   delete = (dTask) => {
@@ -42,6 +55,7 @@ class Todo extends React.Component {
       ],
     });
   };
+
   process = (dTask) => {
     this.setState({
       tasks: [
