@@ -1,10 +1,4 @@
 const CartTask = (props) => {
-  const deletef = (task) => {
-    props.delete(task);
-  };
-  const process = (task) => {
-    props.process(task);
-  };
   if (props.conditions) {
     return (
       <div className="bg-gray-100 rounded-xl p-2 mb-2 bg-green-100">
@@ -23,7 +17,7 @@ const CartTask = (props) => {
             <div className="text-green-500 hover:text-red-600 float-right">
               <span
                 className="fa fa-check-circle"
-                onClick={() => deletef(props.task)}
+                onClick={() => props.delete(props.task)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +50,7 @@ const CartTask = (props) => {
           <div className="text-red-500 hover:text-red-600 float-right">
             <span
               className="fa fa-minus-circle"
-              onClick={() => process(props.task)}
+              onClick={() => props.process(props.task)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +73,7 @@ const CartTask = (props) => {
           <div className="text-green-500 hover:text-red-600 float-right">
             <span
               className="fa fa-check-circle"
-              onClick={() => deletef(props.task)}
+              onClick={() => props.delete(props.task)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

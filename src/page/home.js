@@ -10,9 +10,19 @@ const Home = () => {
       <div className="relative">
         <p className="italic text-8xl ">Click to view completed task</p>
         <p className="italic text-6xl #D1D5DB">Armenian wedding</p>
-        <Cart img={"https://www.channelfutures.com/files/2016/03/todo_0.png"} />
+        <div className="flex mt-14">
+          <Cart
+            img={"https://www.channelfutures.com/files/2016/03/todo_0.png"}
+            link={"/todo"}
+          />
+          <Cart
+            img={
+              "https://img.paperform.co/fetch/f_jpg,w_1800/https://s3.amazonaws.com/paperform-blog/2020/09/How-To-Create-a-Registration-Form-in-HTML-From-Scratch--1-.png"
+            }
+            link={"/form"}
+          />
+        </div>
       </div>
-      <div></div>
     </div>
   );
 };

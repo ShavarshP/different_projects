@@ -46,13 +46,7 @@ class Todo extends React.Component {
 
   delete = (dTask) => {
     this.setState({
-      tasks: [
-        ...this.state.tasks.filter((value) => {
-          if (value.value !== dTask) {
-            return value;
-          }
-        }),
-      ],
+      tasks: [...this.state.tasks.filter((value) => value.value !== dTask)],
     });
   };
 
@@ -90,8 +84,11 @@ class Todo extends React.Component {
               value={this.state.newTask}
               className="flex-initial bg-gray-100 rounded-xl p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-600 w-full mr-2 pl-4"
             ></input>
-            <button className="flex-initial bg-blue-100 hover:bg-blue-200 rounded-xl p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-600 w-20">
-              <span className="text-blue-500" onClick={this.add}>
+            <button
+              onClick={this.add}
+              className="flex-initial bg-blue-100 hover:bg-blue-200 rounded-xl p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-600 w-20"
+            >
+              <span className="text-blue-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-12"
