@@ -1,4 +1,5 @@
 import React from "react";
+import CartTask from "../componet/cartTask";
 
 class Todo extends React.Component {
   constructor(props) {
@@ -11,56 +12,23 @@ class Todo extends React.Component {
     };
   }
 
-  add = () => {
-    if (this.state.newTask) {
-      this.remove();
-    }
-  };
-
-  remove = () => {
-    this.setState((state) => ({
-      ...state,
-      newTask: "",
-    }));
-  };
   componentDidMount() {}
 
   render() {
+    let tasks = this.state.tasks.map((task) => {
+      return <CartTask task={task} />;
+    });
     return (
-      <div className="flex">
-        <div className="border border-red-700 w-1/5 h-96"></div>
-        <div className="flex justify-center flex-wrap content-center border border-red-700 w-3/5 h-96">
-          <div className="flex justify-center  w-4/5 h-3/4 rounded-lg  ">
-            <div>
-              <div>
-                <div className="border border-gray-500 rounded mt-6">
-                  <input
-                    className="placeholder-gray-100 placeholder-opacity-0 h-8 w-60 pl-2"
-                    placeholder="text"
-                    onChange={this.changeHandler}
-                    value={this.state.newTask}
-                  />
-                  <button
-                    className="bg-white hover:bg-gray-100 text-gray-800 font-semibold h-8 px-4 border border-gray-400 rounded shadow"
-                    onClick={this.add}
-                  >
-                    add
-                  </button>
-                  <button
-                    className="bg-white hover:bg-gray-100 text-red-700 font-semibold h-8 px-4 border border-gray-400 rounded shadow"
-                    onClick={this.remove}
-                  >
-                    remove
-                  </button>
-                </div>
-                tasktebl
-              </div>
-
-              <Todo />
-            </div>
+      <div className="flex flex-col items-center min-h-screen bg-gray-200 justify-center py-10">
+        <div className="bg-white rounded-xl p-4 w-80 shadow">
+          <div className="flex">
+            <input className="flex-initial bg-gray-100 rounded-xl p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-600 w-full mr-2 pl-4"></input>
+            <button className="flex-initial bg-blue-100 hover:bg-blue-200 rounded-xl p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-600 w-20">
+              <span className="fa fa-plus text-blue-500"></span>
+            </button>
           </div>
+          {tasks}
         </div>
-        <div className="border border-red-700 w-1/5 h-96"></div>
       </div>
     );
   }
