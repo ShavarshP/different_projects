@@ -21,6 +21,12 @@ const Home = () => {
             }
             link={"/form"}
           />
+          <Cart
+            img={
+              "https://www.bytelion.com/wp-content/uploads/2020/04/Quickly-search-for-information-online-980x551.png"
+            }
+            link={"/search"}
+          />
         </div>
       </div>
     </div>

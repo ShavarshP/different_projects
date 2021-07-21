@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 
 const FormComponet = (props) => {
   const { register, handleSubmit } = useForm();
+  console.log(props.isValid);
   return (
     <form
       onChange={handleSubmit(props.isValid)}
@@ -18,7 +19,7 @@ const FormComponet = (props) => {
             name=""
             id=""
             placeholder="Your Name"
-            className="border p-2  w-1/2"
+            className="border p-2  w-1/2 "
             {...register("name")}
           />
           <input
@@ -69,6 +70,7 @@ const FormComponet = (props) => {
             id="grid-city"
             type="text"
             placeholder="Albuquerque"
+            {...register("city")}
           />
         </div>
       </div>
@@ -99,6 +101,7 @@ const FormComponet = (props) => {
               className="block appearance-none bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-orange-500 transition duration-300 ease-in-out"
               placeholder="you@example.com"
               autoComplete="off"
+              {...register("username")}
             />
           </div>
           <strong className="text-red-500 text-xs italic">
@@ -118,6 +121,7 @@ const FormComponet = (props) => {
               id="grid-password"
               type="password"
               placeholder="******************"
+              {...register("password")}
             />
             <p className="text-grey-dark text-xs italic">
               Make it as long and as crazy as you'd like
@@ -133,6 +137,7 @@ const FormComponet = (props) => {
             name="remember-me"
             type="checkbox"
             className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+            {...register("rememberMe")}
           />
           <label
             htmlFor="remember-me"

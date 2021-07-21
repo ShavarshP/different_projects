@@ -4,11 +4,16 @@ import FormComponet from "../componet/formComponet";
 class Form extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isValidForm: {
+        nameIsValid: true,
+        surnameIsValid: true,
+      },
+    };
   }
 
-  isValid = () => {
-    console.log("maladec");
+  isValid = (form) => {
+    console.log(form);
   };
 
   render() {
@@ -20,7 +25,10 @@ class Form extends React.Component {
               Sign in to your account
             </h2>
 
-            <FormComponet isValid={this.isValid} />
+            <FormComponet
+              isValid={this.isValid}
+              valid={this.state.isValidForm}
+            />
           </div>
         </div>
       </div>
