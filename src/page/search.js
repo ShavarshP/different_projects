@@ -9,7 +9,7 @@ class Search extends React.Component {
 
   async componentDidMount() {
     console.log("maladec");
-    const data = await fetch("https://restcountries.eu/rest/v2/all")
+    await fetch("https://restcountries.eu/rest/v2/all")
       .then((response) => {
         return response.json();
       })

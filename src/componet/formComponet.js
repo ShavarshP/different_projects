@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 
 const FormComponet = (props) => {
   const { register, handleSubmit } = useForm();
-  console.log(props.isValid);
+  console.log(props.valid.usernameIsValid);
   return (
     <form
       onChange={handleSubmit(props.isValid)}
@@ -19,7 +19,11 @@ const FormComponet = (props) => {
             name=""
             id=""
             placeholder="Your Name"
-            className="border p-2  w-1/2 "
+            className={
+              props.valid.nameIsValid
+                ? "border p-2  w-1/2 "
+                : "border p-2  w-1/2 bg-red-100"
+            }
             {...register("name")}
           />
           <input
@@ -28,7 +32,11 @@ const FormComponet = (props) => {
             id=""
             {...register("surname")}
             placeholder="Your Surname"
-            className="border p-2 w-1/2"
+            className={
+              props.valid.surnameIsValid
+                ? "border p-2  w-1/2 "
+                : "border p-2  w-1/2 bg-red-100"
+            }
           />
         </div>
       </div>
@@ -39,7 +47,11 @@ const FormComponet = (props) => {
         id=""
         {...register("email")}
         placeholder="Your Email"
-        className="border p-2 w-full mt-3"
+        className={
+          props.valid.emailIsValid
+            ? "border p-2 w-full mt-3 "
+            : "border p-2 w-full mt-3 bg-red-100"
+        }
       />
 
       <div className="flex space-x-5 mt-3">
@@ -98,7 +110,11 @@ const FormComponet = (props) => {
             </div>
             <input
               id="username"
-              className="block appearance-none bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-orange-500 transition duration-300 ease-in-out"
+              className={
+                props.valid.usernameIsValid
+                  ? "block appearance-none bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-orange-500 transition duration-300 ease-in-out "
+                  : "block appearance-none  text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3 leading-tight focus:outline-none  focus:border-orange-500 transition duration-300 ease-in-out bg-red-100"
+              }
               placeholder="you@example.com"
               autoComplete="off"
               {...register("username")}
@@ -117,7 +133,11 @@ const FormComponet = (props) => {
           </label>
           <div className="relative rounded-md shadow-sm">
             <input
-              className="block appearance-none border-2 border-orange-100 rounded w-full py-2 px-2 text-gray-700 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-orange-500 transition duration-300 ease-in-out"
+              className={
+                props.valid.passwordIsValid
+                  ? "block appearance-none border-2 border-orange-100 rounded w-full py-2 px-2 text-gray-700 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-orange-500 transition duration-300 ease-in-out"
+                  : "block appearance-none border-2 border-orange-100 rounded w-full py-2 px-2 text-gray-700 mb-3 leading-tight focus:outline-none  focus:border-orange-500 transition duration-300 ease-in-out bg-red-100"
+              }
               id="grid-password"
               type="password"
               placeholder="******************"

@@ -8,15 +8,33 @@ class Form extends React.Component {
       isValidForm: {
         nameIsValid: true,
         surnameIsValid: true,
+        emailIsValid: true,
+        usernameIsValid: true,
+        passwordIsValid: true,
       },
     };
   }
 
   isValid = (form) => {
+    const name = /^([A-Za-zéàë]{2,40} ?)+$/;
+    const email = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const password = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     console.log(form);
+    this.setState({
+      isValidForm: {
+        nameIsValid: name.test(form.name) || form.name === "",
+        surnameIsValid: name.test(form.surname) || form.surname === "",
+        emailIsValid: email.test(form.email) || form.email === "",
+        usernameIsValid: name.test(form.username) || form.username === "",
+        passwordIsValid: password.test(form.password) || form.password === "",
+      },
+    });
   };
 
   render() {
+    const form = (
+      <FormComponet isValid={this.isValid} valid={this.state.isValidForm} />
+    );
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
@@ -25,10 +43,7 @@ class Form extends React.Component {
               Sign in to your account
             </h2>
 
-            <FormComponet
-              isValid={this.isValid}
-              valid={this.state.isValidForm}
-            />
+            {form}
           </div>
         </div>
       </div>
