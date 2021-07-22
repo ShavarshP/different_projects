@@ -26,8 +26,8 @@ class Search extends React.Component {
       e.target.value.substring(1);
     console.log("item.name"[0].toUpperCase);
 
-    const filtCountries = this.state.countries.filter((item) =>
-      item.name.startsWith(text)
+    const filtCountries = this.state.countries.filter(
+      (item) => item.name.startsWith(text) && text
     );
     this.setState({
       imputText: e.target.value,
@@ -45,8 +45,8 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="h-20 w-100">
+      <div className="min-h-screen flex  justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="h-20 w-100 mt-40">
           <div className="mt-1 relative rounded-md shadow-sm">
             <input
               onChange={this.handeleinputChange}
