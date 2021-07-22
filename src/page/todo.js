@@ -62,6 +62,12 @@ class Todo extends React.Component {
       ],
     });
   };
+  edit = (dTask) => {
+    this.setState({
+      tasks: [...this.state.tasks.filter((value) => value.value !== dTask)],
+      newTask: dTask,
+    });
+  };
 
   render() {
     let tasks = this.state.tasks.map((task, index) => {
@@ -72,13 +78,14 @@ class Todo extends React.Component {
           conditions={task.isprocess}
           delete={this.delete}
           process={this.process}
+          edit={this.edit}
         />
       );
     });
     return (
       <div className="flex flex-col items-center min-h-screen bg-gray-200 justify-center py-10">
-        <div className="bg-white rounded-xl p-4 w-80 shadow">
-          <div className="flex">
+        <div className=" bg-white rounded-xl p-2  shadow w-100 ">
+          <div className="flex ">
             <input
               onChange={this.onChangeHandler}
               value={this.state.newTask}
