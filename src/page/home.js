@@ -32,7 +32,7 @@ const Home = () => {
             />
             <Cart
               img={
-                "https://ak.picdn.net/shutterstock/videos/1063366012/thumb/11.jpg"
+                "https://cdn.pixabay.com/photo/2016/07/07/08/18/logo-1502039_960_720.jpg"
               }
               link={"/form"}
             />

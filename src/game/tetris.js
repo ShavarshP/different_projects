@@ -4,6 +4,12 @@ import TetrisComp from "../componet/tetrisComp/block";
 
 const Tetris2 = (props) => {
   const [gametablevalue, setgametablevalue] = useState([]);
+  const d3 = [
+    [0, 2],
+    [0, 3],
+    [0, 4],
+    [0, 5],
+  ];
 
   useEffect(() => {
     let value = [];
@@ -11,24 +17,31 @@ const Tetris2 = (props) => {
     for (let i = 0; i < 14; i++) {
       value[i] = [];
       for (let j = 0; j < 8; j++) {
-        value[i] = [...value[i], false];
+        value[i] = [...value[i], true];
       }
     }
 
     setgametablevalue(value);
   }, []);
+
   const start = () => {
-    // setInterval(() => {
-    check();
-    // }, 1000);
+    check(d3);
   };
-  const check = () => {
+  const check = (type) => {
     let value = JSON.parse(JSON.stringify(gametablevalue));
-    for (let i = 0; i < 14; i++) {
-      for (let j = 0; j < 8; j++) {
-        value[i][j] = !value[i][j];
+    type.forEach((element) => {
+      value[element[0]][element[1]] = false;
+    });
+    try {
+      console.log(type.every((item) => value[item[0] + 1][item[1]]));
+      if (type.every((item) => value[item[0] + 1][item[1]])) {
+        console.log("maladec");
+        setgametablevalue(value);
+        setTimeout(() => {
+          check(type.map((item) => [item[0] + 1, item[1]]));
+        }, 600);
       }
-    }
+    } catch (e) {}
     setgametablevalue(value);
     console.log(value);
   };
