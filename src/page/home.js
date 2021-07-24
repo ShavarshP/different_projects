@@ -34,7 +34,7 @@ const Home = () => {
               img={
                 "https://cdn.pixabay.com/photo/2016/07/07/08/18/logo-1502039_960_720.jpg"
               }
-              link={"/form"}
+              link={"/blog/home"}
             />
           </div>
           <div>

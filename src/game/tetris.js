@@ -35,15 +35,15 @@ const Tetris2 = (props) => {
     try {
       console.log(type.every((item) => value[item[0] + 1][item[1]]));
       if (type.every((item) => value[item[0] + 1][item[1]])) {
-        console.log("maladec");
         setgametablevalue(value);
         setTimeout(() => {
           check(type.map((item) => [item[0] + 1, item[1]]));
         }, 600);
+        return undefined;
       }
     } catch (e) {}
     setgametablevalue(value);
-    console.log(value);
+    return undefined;
   };
 
   return (
