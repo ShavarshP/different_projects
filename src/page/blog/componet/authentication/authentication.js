@@ -16,18 +16,13 @@ class Authentication extends React.Component {
     data.password &&
     this.state.isValidForm.usernameIsValid &&
     this.state.isValidForm.passwordIsValid
-      ? console.log(
-          data.username,
-          data.password,
-          this.state.isValidForm.usernameIsValid,
-          this.state.isValidForm.passwordIsValid
-        )
-      : this.setState({
-          isValidForm: {
-            usernameIsValid: false,
-            passwordIsValid: false,
-          },
-        });
+      ? localStorage.setItem("auth", JSON.stringify(data))
+      : this.noValid();
+  };
+  noValid = () => {
+    this.setState({
+      isValidForm: { usernameIsValid: false, passwordIsValid: false },
+    });
     alert("krkin pordir");
   };
 
