@@ -6,9 +6,9 @@ const FormComponet = (props) => {
   console.log(props.valid.usernameIsValid);
   return (
     <form
+      onSubmit={handleSubmit(props.onSubmit)}
       onChange={handleSubmit(props.isValid)}
       className="mt-20 space-y-6"
-      action="#"
       method="POST"
     >
       <input type="hidden" name="remember" defaultValue="true" />
