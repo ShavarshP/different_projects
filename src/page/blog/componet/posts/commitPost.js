@@ -1,9 +1,8 @@
 import { NavLink } from "react-router-dom";
 
-const ComPost = ({ data }) => {
-  console.log(data);
+const ComPost = ({ data, commit, addCommit, changehandler, newCommit }) => {
   return (
-    <div className="max-w-md h-98 relative mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl mt-10">
+    <div className="max-w-md h-98 relative mx-auto bg-white rounded-xl shadow-2xl overflow-hidden md:max-w-2xl mt-10">
       <div className="md:flex">
         <div className="md:flex-shrink-0">
           <div
@@ -23,12 +22,19 @@ const ComPost = ({ data }) => {
           <a className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">
             {data.title}
           </a>
-          <p className="mt-2 text-gray-500">{data.post}</p>
+          <p className="mt-2 text-gray-500 w-96">{data.post}</p>
         </div>
       </div>
       <div className="flex mx-10">
-        <input className="flex-initial bg-gray-100 rounded-xl p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-600 w-full mr-2 pl-4"></input>
-        <button className="flex-initial bg-blue-100 hover:bg-blue-200 rounded-xl p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-600 ">
+        <input
+          onChange={changehandler}
+          value={newCommit}
+          className="flex-initial bg-gray-100 rounded-xl p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-600 w-full mr-2 pl-4"
+        ></input>
+        <button
+          onClick={() => addCommit(data.id)}
+          className="flex-initial bg-blue-100 hover:bg-blue-200 rounded-xl p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-600 "
+        >
           <span className="text-blue-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -47,6 +53,7 @@ const ComPost = ({ data }) => {
           </span>
         </button>
       </div>
+      {commit}
     </div>
   );
 };
