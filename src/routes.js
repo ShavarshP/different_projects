@@ -2,13 +2,14 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Calculator from "./componet/calculator";
 import Tetris from "./game/tetris";
-import Blog from "./page/blog/blog";
+import Blog from "./page/blog/home";
 import Authentication from "./page/blog/componet/authentication/authentication";
 import Form from "./page/form";
 
 import Home from "./page/home";
 import Search from "./page/search";
 import Todo from "./page/todo";
+import ComPag from "./page/blog/componet/commitPage/comPag";
 
 export const useRoutes = (props) => {
   return (
@@ -33,6 +34,9 @@ export const useRoutes = (props) => {
       </Route>
       <Route path="/blog/home" exact>
         <Blog />
+      </Route>
+      <Route path="/blog/commit/:id" exact>
+        <ComPag />
       </Route>
       <Route path="/blog/auth" exact>
         <Authentication />

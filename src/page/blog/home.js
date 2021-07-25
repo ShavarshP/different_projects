@@ -1,30 +1,29 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import Headers from "./componet/headers";
+import idGenerator from "./componet/idGenerator/idGenerator";
 import Post from "./componet/posts/posts";
 
+const newId = idGenerator();
 class Blog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: [
-        {
-          name: "Melo",
-          title: "hmaria omn ",
-          post: "sireli barekamner  inchpes eq",
-          coment: [],
-        },
-        {
-          name: "beno",
-          title: "Maladec",
-          post: "sirun es du mareta qnqush u bari ",
-          coment: [{ name: "shahs", commit: "saqoo" }],
-        },
-      ],
+      posts: JSON.parse(localStorage.getItem("store")),
     };
   }
+  addComit = () => {
+    if (localStorage.getItem("auth")) {
+      return true;
+    }
+    return false;
+  };
 
   render() {
-    const posts = this.state.posts.map((item) => <Post data={item} />);
+    localStorage.setItem("store", JSON.stringify(this.state.posts));
+    const posts = this.state.posts.map((item) => (
+      <Post data={item} addComit={this.addComit} />
+    ));
     return (
       <div>
         <Headers />

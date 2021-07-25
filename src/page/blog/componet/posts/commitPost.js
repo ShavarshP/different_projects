@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
 
-const Post = ({ data, addComit }) => {
+const ComPost = ({ data }) => {
+  console.log(data);
   return (
-    <div className="max-w-md relative mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl mt-10">
+    <div className="max-w-md h-98 relative mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl mt-10">
       <div className="md:flex">
         <div className="md:flex-shrink-0">
           <div
@@ -24,24 +25,29 @@ const Post = ({ data, addComit }) => {
           </a>
           <p className="mt-2 text-gray-500">{data.post}</p>
         </div>
-
-        <NavLink
-          to={addComit() ? "/blog/commit/" + data.id : "/blog/auth"}
-          className="text-green-500 w-10 right-0 -bottom-5 absolute h-10 mb-4 hover:text-red-600 float-right"
-        >
-          <span className="fa fa-check-circle">
+      </div>
+      <div className="flex mx-10">
+        <input className="flex-initial bg-gray-100 rounded-xl p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-600 w-full mr-2 pl-4"></input>
+        <button className="flex-initial bg-blue-100 hover:bg-blue-200 rounded-xl p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-600 ">
+          <span className="text-blue-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
+              className="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+              />
             </svg>
           </span>
-        </NavLink>
+        </button>
       </div>
     </div>
   );
 };
-export default Post;
+export default ComPost;

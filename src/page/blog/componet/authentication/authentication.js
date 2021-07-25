@@ -12,18 +12,23 @@ class Authentication extends React.Component {
     };
   }
   onSubmit = (data) => {
-    data.username &&
-    data.password &&
-    this.state.isValidForm.usernameIsValid &&
-    this.state.isValidForm.passwordIsValid
+    return data.username &&
+      data.password &&
+      this.state.isValidForm.usernameIsValid &&
+      this.state.isValidForm.passwordIsValid
       ? localStorage.setItem("auth", JSON.stringify(data))
       : this.noValid();
+  };
+  Valid = (data) => {
+    localStorage.setItem("auth", JSON.stringify(data));
+    this.props.history.push("/home");
   };
   noValid = () => {
     this.setState({
       isValidForm: { usernameIsValid: false, passwordIsValid: false },
     });
     alert("krkin pordir");
+    return false;
   };
 
   isValid = (form) => {
