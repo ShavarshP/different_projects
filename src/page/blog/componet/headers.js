@@ -4,7 +4,7 @@ import { Popover } from "@headlessui/react";
 import { MenuIcon } from "@heroicons/react/outline";
 import { NavLink } from "react-router-dom";
 
-export default function Headers() {
+export default function Headers({ login }) {
   return (
     <Popover className="relative bg-gray-100 ">
       {({ open }) => (
@@ -38,7 +38,10 @@ export default function Headers() {
                 >
                   Create Post
                 </NavLink>
-                <a className="ml-8 whitespace-nowrap cursor-pointer inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+                <a
+                  onClick={login}
+                  className="ml-8 whitespace-nowrap cursor-pointer inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                >
                   {localStorage.getItem("auth") ? "Log out" : "Log in"}
                 </a>
               </div>
