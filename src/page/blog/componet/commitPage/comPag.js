@@ -8,13 +8,19 @@ class ComPag extends React.Component {
     super(props);
     this.state = {
       newCommit: "",
-      posts: JSON.parse(localStorage.getItem("store"))[0],
+      posts: this.getData(),
       render: true,
     };
   }
+  getData = () => {
+    const data = JSON.parse(localStorage.getItem("store"));
+    const url = window.location.pathname.split("/");
+    const id = url[url.length - 1];
+
+    return data.filter((item) => Number(item.id) === Number(id))[0];
+  };
 
   trashPost = (id) => {
-    console.log(id);
     // const data = JSON.parse(localStorage.getItem("store")).filter(
     //   (item) => item.id !== id
     // );
@@ -22,10 +28,11 @@ class ComPag extends React.Component {
     // this.setState({render:false})
   };
 
-  addCommit = (id) => {
-    console.log(id);
+  addCommit = () => {
+    const url = window.location.pathname.split("/");
+    const id = url[url.length - 1];
     const store = JSON.parse(localStorage.getItem("store")).map((item) => {
-      if (item.id === id) {
+      if (Number(item.id) === Number(id)) {
         return {
           ...item,
           coment: [
@@ -42,7 +49,7 @@ class ComPag extends React.Component {
     localStorage.setItem("store", JSON.stringify(store));
     this.setState({
       newCommit: "",
-      posts: JSON.parse(localStorage.getItem("store"))[0],
+      posts: this.getData(),
     });
   };
   changehandler = (e) => {
@@ -52,7 +59,7 @@ class ComPag extends React.Component {
   };
 
   render() {
-    console.log("maladec");
+    console.log(window.localStorage.id);
     const commit = this.state.posts.coment.map((item) => (
       <Commits name={item.name} commit={item.commit} />
     ));
