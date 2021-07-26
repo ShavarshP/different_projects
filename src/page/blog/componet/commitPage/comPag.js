@@ -1,17 +1,17 @@
 import React from "react";
 import ComPost from "../posts/commitPost";
 import Commits from "../posts/commits/commits";
+import { withRouter } from "react-router";
 
 class ComPag extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       newCommit: "",
-      posts: JSON.parse(localStorage.getItem("store")).filter(
-        (item) => item.id === 559
-      )[0],
+      posts: JSON.parse(localStorage.getItem("store"))[0],
     };
   }
+
   addCommit = (id) => {
     console.log(id);
     const store = JSON.parse(localStorage.getItem("store")).map((item) => {

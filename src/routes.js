@@ -10,6 +10,7 @@ import Home from "./page/home";
 import Search from "./page/search";
 import Todo from "./page/todo";
 import ComPag from "./page/blog/componet/commitPage/comPag";
+import CreatPost from "./page/blog/componet/createpost/createpost";
 
 export const useRoutes = (props) => {
   return (
@@ -40,6 +41,9 @@ export const useRoutes = (props) => {
       </Route>
       <Route path="/blog/auth" exact>
         <Authentication />
+      </Route>
+      <Route path="/blog/CreatPost" exact>
+        <CreatPost />
       </Route>
       <Redirect from="/" to="/home" />
     </Switch>

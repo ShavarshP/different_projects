@@ -1,7 +1,15 @@
 import React from "react";
 import FormComponet from "./formComponet";
+import PropTypes from "prop-types";
+import { withRouter } from "react-router";
+import { Redirect } from "react-router-dom";
 
 class Authentication extends React.Component {
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -9,6 +17,7 @@ class Authentication extends React.Component {
         usernameIsValid: true,
         passwordIsValid: true,
       },
+      isAuth: false,
     };
   }
   onSubmit = (data) => {
@@ -16,12 +25,12 @@ class Authentication extends React.Component {
       data.password &&
       this.state.isValidForm.usernameIsValid &&
       this.state.isValidForm.passwordIsValid
-      ? localStorage.setItem("auth", JSON.stringify(data))
+      ? this.Valid(data)
       : this.noValid();
   };
   Valid = (data) => {
     localStorage.setItem("auth", JSON.stringify(data));
-    this.props.history.push("/home");
+    this.setState({ isAuth: true });
   };
   noValid = () => {
     this.setState({
@@ -43,6 +52,9 @@ class Authentication extends React.Component {
   };
 
   render() {
+    if (this.state.isAuth) {
+      return <Redirect to={"/blog/home"} />;
+    }
     const form = (
       <FormComponet
         isValid={this.isValid}

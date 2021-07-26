@@ -22,7 +22,7 @@ const Post = ({ data, addComit }) => {
           <a className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">
             {data.title}
           </a>
-          <p className="mt-2 text-gray-500">{data.post}</p>
+          <p className="mt-2 text-gray-500 w-80">{data.post}</p>
         </div>
 
         <NavLink

@@ -1,15 +1,14 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 import Headers from "./componet/headers";
-import idGenerator from "./componet/idGenerator/idGenerator";
 import Post from "./componet/posts/posts";
 
-const newId = idGenerator();
 class Blog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: JSON.parse(localStorage.getItem("store")),
+      posts: JSON.parse(localStorage.getItem("store"))
+        ? JSON.parse(localStorage.getItem("store"))
+        : [],
     };
   }
   addComit = () => {
