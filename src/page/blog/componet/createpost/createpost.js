@@ -3,7 +3,9 @@ import Textarea from "@material-tailwind/react/Textarea";
 import Input from "@material-tailwind/react/Input";
 import idGenerator from "../idGenerator/idGenerator";
 import { Redirect } from "react-router-dom";
+
 const newId = idGenerator();
+
 class CreatPost extends React.Component {
   constructor(props) {
     super(props);

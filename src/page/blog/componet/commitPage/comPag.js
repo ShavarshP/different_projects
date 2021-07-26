@@ -9,8 +9,18 @@ class ComPag extends React.Component {
     this.state = {
       newCommit: "",
       posts: JSON.parse(localStorage.getItem("store"))[0],
+      render: true,
     };
   }
+
+  trashPost = (id) => {
+    console.log(id);
+    // const data = JSON.parse(localStorage.getItem("store")).filter(
+    //   (item) => item.id !== id
+    // );
+    // localStorage.setItem("store", JSON.stringify(data));
+    // this.setState({render:false})
+  };
 
   addCommit = (id) => {
     console.log(id);
@@ -27,16 +37,13 @@ class ComPag extends React.Component {
           ],
         };
       }
-
       return item;
     });
     localStorage.setItem("store", JSON.stringify(store));
     this.setState({
-      posts: JSON.parse(localStorage.getItem("store")).filter(
-        (item) => item.id === 559
-      )[0],
+      newCommit: "",
+      posts: JSON.parse(localStorage.getItem("store"))[0],
     });
-    console.log(store);
   };
   changehandler = (e) => {
     this.setState({
@@ -45,6 +52,7 @@ class ComPag extends React.Component {
   };
 
   render() {
+    console.log("maladec");
     const commit = this.state.posts.coment.map((item) => (
       <Commits name={item.name} commit={item.commit} />
     ));
@@ -53,6 +61,7 @@ class ComPag extends React.Component {
       <div>
         <div className=" min-h-screen flex  justify-center ">
           <ComPost
+            trashPost={this.trashPost}
             newCommit={this.state.newCommit}
             changehandler={this.changehandler}
             data={this.state.posts}
