@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Post = ({ data, addComit }) => {
   return (
@@ -44,4 +45,10 @@ const Post = ({ data, addComit }) => {
     </div>
   );
 };
+
+Post.propType = {
+  data: PropTypes.object,
+  addComit: PropTypes.string,
+};
+
 export default Post;

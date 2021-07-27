@@ -27,8 +27,8 @@ const Tetris2 = (props) => {
   const start = () => {
     check(d3);
   };
-  const check = (type) => {
-    let value = JSON.parse(JSON.stringify(gametablevalue));
+  const check = (type, tabl = gametablevalue) => {
+    let value = JSON.parse(JSON.stringify(tabl));
     type.forEach((element) => {
       value[element[0]][element[1]] = false;
     });
@@ -37,13 +37,21 @@ const Tetris2 = (props) => {
       if (type.every((item) => value[item[0] + 1][item[1]])) {
         setgametablevalue(value);
         setTimeout(() => {
-          check(type.map((item) => [item[0] + 1, item[1]]));
+          type.forEach((element) => {
+            value[element[0]][element[1]] = true;
+          });
+          check(
+            type.map((item) => [item[0] + 1, item[1]]),
+            value
+          );
         }, 600);
         return undefined;
       }
     } catch (e) {}
     setgametablevalue(value);
-    return undefined;
+    setTimeout(() => {
+      return check(d3, value);
+    }, 600);
   };
 
   return (
