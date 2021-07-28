@@ -4,11 +4,13 @@ import TetrisComp from "../componet/tetrisComp/block";
 
 const Tetris2 = (props) => {
   const [gametablevalue, setgametablevalue] = useState([]);
+  const [isStart, setStart] = useState(false);
+  const [typeBlok, setType] = useState(0);
   const d3 = [
-    [0, 2],
     [0, 3],
     [0, 4],
     [0, 5],
+    [0, 6],
   ];
 
   useEffect(() => {
@@ -24,19 +26,65 @@ const Tetris2 = (props) => {
     setgametablevalue(value);
   }, []);
 
-  const start = () => {
-    check(d3);
+  useEffect(() => {}, []);
+
+  const checkTable = (value) => {
+    return value.map((item) => {
+      return item.map((item2, index, arr) => {
+        if (arr.every((item) => item === false)) {
+          return true;
+        }
+        return item2;
+      });
+    });
   };
-  const check = (type, tabl = gametablevalue) => {
+
+  const start = () => {
+    if (!isStart) {
+      check(d3);
+      setStart(true);
+    }
+  };
+
+  const check = (type = d3, tabl = gametablevalue) => {
+    tabl = checkTable(tabl);
+    const muve = () => {
+      type.forEach((element) => {
+        value[element[0]][element[1]] = true;
+      });
+    };
+    const escFunction = (event) => {
+      switch (event.keyCode) {
+        case 37:
+          muve();
+          type = type.map((element) => {
+            return [element[0], element[1] - 1];
+          });
+          break;
+        case 39:
+          muve();
+          type = type.map((element) => {
+            return [element[0], element[1] + 1];
+          });
+          break;
+        default:
+          console.log("maladec");
+          break;
+      }
+    };
     let value = JSON.parse(JSON.stringify(tabl));
+
+    document.addEventListener("keydown", escFunction, false);
     type.forEach((element) => {
       value[element[0]][element[1]] = false;
     });
     try {
-      console.log(type.every((item) => value[item[0] + 1][item[1]]));
-      if (type.every((item) => value[item[0] + 1][item[1]])) {
+      const isCanMuve = emptyBlock(type);
+
+      if (isCanMuve.every((item) => value[item[0] + 1][item[1]])) {
         setgametablevalue(value);
         setTimeout(() => {
+          document.removeEventListener("keydown", escFunction, false);
           type.forEach((element) => {
             value[element[0]][element[1]] = true;
           });
@@ -52,6 +100,14 @@ const Tetris2 = (props) => {
     setTimeout(() => {
       return check(d3, value);
     }, 600);
+  };
+
+  const emptyBlock = (bloks) => {
+    const bb = bloks.filter(
+      (item, index, arr) =>
+        !arr.some((i) => item[0] + 1 === i[0] && item[1] === i[1])
+    );
+    return bb;
   };
 
   return (
