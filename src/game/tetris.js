@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Button from "../componet/button/button";
 import TetrisComp from "../componet/tetrisComp/block";
+import typeBloks from "./store";
 
 const Tetris2 = (props) => {
   const [gametablevalue, setgametablevalue] = useState([]);
   const [isStart, setStart] = useState(false);
-  const [typeBlok, setType] = useState(0);
-  const d3 = [
-    [0, 3],
-    [0, 4],
-    [0, 5],
-    [0, 6],
-  ];
+
+  const d3 = typeBloks;
 
   useEffect(() => {
     let value = [];
@@ -41,13 +37,14 @@ const Tetris2 = (props) => {
 
   const start = () => {
     if (!isStart) {
-      check(d3);
+      check(d3[Math.floor(Math.random() * d3.length)]);
       setStart(true);
     }
   };
 
   const check = (type = d3, tabl = gametablevalue) => {
     tabl = checkTable(tabl);
+
     const muve = () => {
       type.forEach((element) => {
         value[element[0]][element[1]] = true;
@@ -98,7 +95,7 @@ const Tetris2 = (props) => {
     } catch (e) {}
     setgametablevalue(value);
     setTimeout(() => {
-      return check(d3, value);
+      return check(d3[Math.floor(Math.random() * d3.length)], value);
     }, 600);
   };
 
