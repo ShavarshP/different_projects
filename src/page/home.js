@@ -18,7 +18,7 @@ const Home = () => {
             />
             <Cart
               img={
-                "https://www.crushpixel.com/big-static19/preview4/neon-game-controllers-joysticks-game-3193939.jpg"
+                "https://play-lh.googleusercontent.com/DLeUjc5SLlo7kMCvtel5AZCUcfNVW1Mv_PhTJUzfthZ5MQfnmMZs55DLKjPoJGTu_Q"
               }
               link={"/tetris"}
             />

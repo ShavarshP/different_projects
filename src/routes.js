@@ -11,6 +11,7 @@ import Search from "./page/search";
 import Todo from "./page/todo";
 import ComPag from "./page/blog/componet/commitPage/comPag";
 import CreatPost from "./page/blog/componet/createpost/createpost";
+import GamBam from "./game/2048";
 
 export const useRoutes = (props) => {
   return (
@@ -28,7 +29,7 @@ export const useRoutes = (props) => {
         <Search />
       </Route>
       <Route path="/tetris" exact>
-        <Tetris />
+        <GamBam />
       </Route>
       <Route path="/calculator" exact>
         <Calculator />
