@@ -29,10 +29,25 @@ const sumX = (mtr, moveX = "") => {
     );
     return [...acc, arrXleft];
   }, []);
-  console.log(newMtr);
+  return newMtr;
 };
 
-const sumY = (mtr, moveX = "") => {};
+const sumY = (mtr, move = "") => {
+  const newMtr = mtr.reduce((acc, item, index, array) => {
+    const arr = array.map((item2) => {
+      return item2[index];
+    });
+    return [...acc, arr];
+  }, []);
+  const turnRight = move === "bottom" ? sumX(newMtr, "right") : sumX(newMtr);
+  const turnLeft = turnRight.reduce((acc, item, index, array) => {
+    const arr = array.map((item2) => {
+      return item2[index];
+    });
+    return [...acc, arr];
+  }, []);
+  return turnLeft;
+};
 
 const MoveTop = () => {
   const mtr = [
@@ -41,9 +56,11 @@ const MoveTop = () => {
     [4, 8, 8, 4],
     [false, false, false, false],
   ];
-  sumX(mtr, "right"); // right or left
-  sumX(mtr, "left");
-  sumY(mtr, "top");
+  // sumX(mtr, "right"); // right or left
+  // sumX(mtr, "left");
+  console.log(mtr);
+  sumY(mtr);
+  sumY(mtr, "bottom");
 };
 
 export default MoveTop;
