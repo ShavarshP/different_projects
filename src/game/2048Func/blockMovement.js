@@ -49,18 +49,22 @@ const sumY = (mtr, move = "") => {
   return turnLeft;
 };
 
-const MoveTop = () => {
-  const mtr = [
+const MoveTop = (
+  direction,
+  mtr = [
     [false, false, false, false],
     [false, 4, 2, false],
     [4, 8, 8, 4],
     [false, false, false, false],
-  ];
+  ]
+) => {
   // sumX(mtr, "right"); // right or left
   // sumX(mtr, "left");
-  console.log(mtr);
-  sumY(mtr);
-  sumY(mtr, "bottom");
+  if (direction === "top" || direction === "bottom") {
+    return sumY(mtr, direction);
+  } else {
+    return sumX(mtr, direction);
+  }
 };
 
 export default MoveTop;

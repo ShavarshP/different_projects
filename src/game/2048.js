@@ -8,6 +8,12 @@ const GamBam = () => {
   const [gametablevalue, setgametablevalue] = useState([]);
   const [table, setTable] = useState(<div></div>);
 
+  const move = async (newMtr) => {
+    let value = pour(newMtr);
+    setgametablevalue(value);
+    setTable(check(value));
+  };
+
   useEffect(() => {
     let value = [];
     for (let i = 0; i < 4; i++) {
@@ -16,19 +22,16 @@ const GamBam = () => {
         value[i] = [...value[i], false];
       }
     }
+    console.log(value);
     value = pour(value);
     value = pour(value);
     setgametablevalue(value);
     setTable(check(value));
-    startEvent();
-    console.log(value);
   }, []);
 
   useEffect(() => {
-    return () => {
-      endEvent();
-    };
-  }, []);
+    startEvent("start", move, gametablevalue);
+  }, [table]);
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-200 justify-center py-10">
       <div className="flex items-center justify-around flex-wrap p-1 bg-gray-600 table_2048">
