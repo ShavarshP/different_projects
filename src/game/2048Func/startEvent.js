@@ -25,10 +25,7 @@ const startEvent = (condition = "start", func = false, mtr) => {
     }
   };
 
-  console.log("maladec3");
   document.addEventListener("keydown", escFunction, false);
 };
-export const endEvent = () => {
-  console.log("avart");
-};
+export const endEvent = () => {};
 export default startEvent;

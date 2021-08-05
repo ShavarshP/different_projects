@@ -1,18 +1,24 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import check from "./2048Func/check";
 import "./2048Func/2048.css";
 import pour from "./2048Func/pour";
 import startEvent, { endEvent } from "./2048Func/startEvent";
+import isSimilar from "./2048Func/isSimilar";
 
 const GamBam = () => {
   const [gametablevalue, setgametablevalue] = useState([]);
   const [table, setTable] = useState(<div></div>);
 
-  const move = async (newMtr) => {
-    let value = pour(newMtr);
-    setgametablevalue(value);
-    setTable(check(value));
-  };
+  const move = useCallback((newMtr) => {
+    if (gametablevalue.length != 0) {
+      let value = newMtr;
+      if (isSimilar(value, gametablevalue)) {
+        value = pour(value);
+      }
+      setgametablevalue(value);
+      setTable(check(value));
+    }
+  });
 
   useEffect(() => {
     let value = [];
@@ -22,7 +28,7 @@ const GamBam = () => {
         value[i] = [...value[i], false];
       }
     }
-    console.log(value);
+
     value = pour(value);
     value = pour(value);
     setgametablevalue(value);
