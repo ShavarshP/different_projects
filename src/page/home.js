@@ -20,7 +20,7 @@ const Home = () => {
               img={
                 "https://play-lh.googleusercontent.com/DLeUjc5SLlo7kMCvtel5AZCUcfNVW1Mv_PhTJUzfthZ5MQfnmMZs55DLKjPoJGTu_Q"
               }
-              link={"/tetris"}
+              link={"/2048"}
             />
           </div>
           <div>

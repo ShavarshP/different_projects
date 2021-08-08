@@ -28,7 +28,7 @@ export const useRoutes = (props) => {
       <Route path="/search" exact>
         <Search />
       </Route>
-      <Route path="/tetris" exact>
+      <Route path="/2048" exact>
         <GamBam />
       </Route>
       <Route path="/calculator" exact>
