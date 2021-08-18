@@ -1,0 +1,85 @@
+.table_sudoku {
+  width: 486px;
+  height: 486px;
+  background-color: rgb(255, 255, 255);
+}
+.sudoku {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+  min-height: 100%;
+  display: flex;
+}
+.quantity {
+  position: relative;
+}
+
+.number[type="number"]::-webkit-inner-spin-button,
+.number[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.number {
+  width: 32px;
+  height: 52px;
+  font-size: 150%;
+  line-height: 1.65;
+  float: left;
+  display: block;
+  padding: 0;
+  margin: 0;
+  padding-left: 20px;
+  border: 1px dashed rgb(116, 115, 115);
+}
+
+.number:focus {
+  outline: 0;
+}
+.numberBlok {
+  border: 1px dashed rgb(116, 115, 115);
+  font-size: 150%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: brown;
+  width: 52px;
+  height: 52px;
+}
+.border {
+  height: 3px;
+  width: 100%;
+  background-color: black;
+  position: relative;
+  bottom: 325px;
+}
+.border2 {
+  height: 3px;
+  width: 100%;
+  background-color: black;
+  position: relative;
+  bottom: 166px;
+}
+
+.border3 {
+  height: 100%;
+  width: 3px;
+  background-color: black;
+  position: relative;
+  left: 161px;
+  bottom: 492px;
+}
+.border4 {
+  height: 100%;
+  width: 3px;
+  background-color: black;
+  position: relative;
+  left: 323px;
+  bottom: 978px;
+}
+.bigNumberBlok {
+  display: flex;
+  flex-wrap: wrap;
+}
