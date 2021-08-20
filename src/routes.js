@@ -12,6 +12,8 @@ import Todo from "./page/todo";
 import ComPag from "./page/blog/componet/commitPage/comPag";
 import CreatPost from "./page/blog/componet/createpost/createpost";
 import GamBam from "./game/2048";
+import Sudoku from "./game/sudoku/sudoku";
+import Auth from "./page/authentication/authPage";
 
 export const useRoutes = (props) => {
   return (
@@ -45,6 +47,12 @@ export const useRoutes = (props) => {
       </Route>
       <Route path="/blog/CreatPost" exact>
         <CreatPost />
+      </Route>
+      <Route path="/sudoku" exact>
+        <Sudoku />
+      </Route>
+      <Route path="/auth" exact>
+        <Auth />
       </Route>
       <Redirect from="/" to="/home" />
     </Switch>

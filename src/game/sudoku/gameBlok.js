@@ -1,14 +1,14 @@
 import styles from "./style.module.css";
 
 const CreateBlok = ({ arrMtr }) => {
-  //   console.log(arrMtr);
-
-  const blok = arrMtr.map((item) =>
+  const blok = arrMtr.map((item, index) =>
     item ? (
-      <div className={styles.numberBlok}>{item}</div>
+      <div key={index} className={styles.numberBlok}>
+        {item}
+      </div>
     ) : (
-      <div class={styles.quantity}>
-        <input class={styles.number} type="number" min="1" max="9" />
+      <div key={index} className={styles.quantity}>
+        <input className={styles.number} type="number" min="1" max="9" />
       </div>
     )
   );

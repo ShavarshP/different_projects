@@ -1,11 +1,9 @@
-import React, { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { useHttp } from "../../componet/hooks/useHttp";
 
 import Form from "./components/form";
 
-const SignUp = () => {
-  const [usernameIsValid, setusernameIsValid] = useState(true);
-  const [passwordIsValid, setpasswordIsValid] = useState(true);
+const Auth = () => {
   const [form, setForm] = useState({
     logEmail: "",
     logPassword: "",
@@ -13,52 +11,72 @@ const SignUp = () => {
     userName: "",
     password: "",
   });
+  const { loading, request, error, clearError } = useHttp();
 
-  const history = useHistory();
-  //   const onSubmit = (data) => {
-  //     return data.username && data.password && passwordIsValid && usernameIsValid
-  //       ? Valid(data)
-  //       : noValid();
-  //   };
+  const logIn = async (email, password, userName) => {
+    console.log(email, password);
+    try {
+      const data = await request(
+        "https://shavarshgame.herokuapp.com/api/login/",
+        "POST",
+        { email: email, password: password }
+      );
 
-  const noValid = () => {
-    setpasswordIsValid(false);
-    setusernameIsValid(false);
-    alert("krkin pordir");
-    return false;
+      console.log(data);
+
+      if (userName) {
+        const newData = await request(
+          "https://shavarshgame.herokuapp.com/api/generate/",
+          "POST",
+          { owner: data.userId, userName: userName },
+          {
+            Authorization: `Bearer ${data.token}`,
+          }
+        );
+        console.log(newData);
+      }
+
+      localStorage.setItem("auth", JSON.stringify(data));
+    } catch (e) {}
+  };
+  const signUp = async (userName, email, password) => {
+    console.log("maladec");
+    try {
+      const data = await request(
+        "https://shavarshgame.herokuapp.com/api/register/",
+        "POST",
+        { email: email, userName: userName, password: password }
+      );
+      console.log(data.message);
+      logIn(email, password, userName);
+    } catch (e) {}
   };
 
-  const isValid = (form) => {
-    console.log("maladec");
+  const isValid = (email, userName, password) => {
     const name = /^([A-Za-zéàë]{2,40} ?)+$/;
-    const password = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    setusernameIsValid(name.test(form.username) || form.username === "");
-    setpasswordIsValid(password.test(form.password) || form.password === "");
+    const passwordTest = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const emailTest = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (userName === null) {
+      if (passwordTest.test(password) && emailTest.test(email)) {
+        logIn(email, password);
+      } else {
+        console.log("krkin pordir");
+      }
+    } else {
+      if (
+        passwordTest.test(password) &&
+        name.test(userName) &&
+        emailTest.test(email)
+      ) {
+        signUp(userName, email, password);
+      }
+    }
   };
   const onSubmit = (data) => {
-    console.log(form.logEmail, form.logPassword);
+    isValid(data.email, null, data.password);
   };
   const onCreate = (data) => {
-    console.log(form.email, form.userName, form.password);
-    fetch("https://shavarshgame.herokuapp.com/api/register/", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      mode: "no-cors",
-      body: JSON.stringify({
-        email: "shavrshss177@gmmai.com",
-        userName: "Shampain",
-        password: "shavarsh222",
-      }),
-    })
-      .then(function (res) {
-        console.log(res);
-      })
-      .catch(function (res) {
-        console.log("res");
-      });
+    isValid(data.email, data.userName, data.password);
   };
   const onChangeData = (data) => {
     setForm({
@@ -69,17 +87,7 @@ const SignUp = () => {
       password: data.password,
     });
   };
-  //   const form = (
-  //     <FormComponet
-  //       isValid={isValid}
-  //       valid={{
-  //         passwordIsValid: passwordIsValid,
-  //         usernameIsValid: usernameIsValid,
-  //       }}
-  //       onSubmit={onSubmit}
-  //       type={"Sign up"}
-  //     />
-  //   );
+
   return (
     <div className="row">
       <Form
@@ -91,4 +99,4 @@ const SignUp = () => {
     </div>
   );
 };
-export default SignUp;
+export default Auth;

@@ -36,6 +36,12 @@ const Home = () => {
               }
               link={"/blog/home"}
             />
+            <Cart
+              img={
+                "https://img.apkfab.com/v2/img/b/d/7/euk3L25kqWg7TcX6D3ZZJy9fvWoTiALra7Jzzqxp.png?h=240&type=webp"
+              }
+              link={"/#"}
+            />
           </div>
           <div>
             <Cart
@@ -43,6 +49,12 @@ const Home = () => {
                 "https://www.bytelion.com/wp-content/uploads/2020/04/Quickly-search-for-information-online-980x551.png"
               }
               link={"/search"}
+            />
+            <Cart
+              img={
+                "https://vuejsdevelopers.com/images/posts/form_handling_vuelidate.png"
+              }
+              link={"/auth"}
             />
           </div>
         </div>
