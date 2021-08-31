@@ -1,12 +1,14 @@
 import styles from "./style.module.css";
 
-export const CartClosed = () => {
+export const CartClosed = (img_id) => {
   return (
     <div>
       <div className={styles.ImgesBox}>
         <img
           className={styles.cartImg2}
-          src={"https://www.dcode.fr/tools/playing-cards/images/trefle_d.png"}
+          src={
+            "https://www.dcode.fr/tools/playing-cards/images/" + img_id + ".png"
+          }
         />
         <img
           className={styles.cartClosedImg2}

@@ -12,6 +12,7 @@ const Cards = ({
   tableData,
   primary,
   selected,
+  img,
 }) => {
   const [playerData, setPlayerData] = useState("mi ban");
   const [tableCards, setTableCards] = useState("mi ban");
@@ -47,7 +48,7 @@ const Cards = ({
   useEffect(() => {
     getData();
   }, []);
-  const stackCards = CartClosed();
+  const stackCards = CartClosed(img);
 
   return (
     <div className={styles.tableCards}>
