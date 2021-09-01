@@ -32,18 +32,26 @@ function Gamebum() {
       setCartData(getData.myCard);
       setPrimary(getData.primary);
       setRandomCard(getData.random[0]);
-      console.log("mmmm", getData.random);
+
       setCondition(!data);
-      // console.log(getData);
     });
     socket.on("ROOM:SET_USERS_CARDS", (data) => {
       const getData = JSON.parse(data);
-      console.log("sss", getData);
+
       setAllCards(getData);
     });
-    socket.emit("TABLE:DATA", { roome, tableData: "null" });
+    socket.emit("TABLE:DATA", { roome, tableData: { cards: "null" } });
     socket.on("TABLE:DATA", (data) => {
-      const nuwData = JSON.parse(data).data;
+      const nuwData = JSON.parse(data).data.cards;
+      if (JSON.parse(data).data.cards.length === 0 && cardData.length < 6) {
+        const amount = JSON.stringify({
+          index: cardData.length < 6 ? 6 - cardData.length : 0,
+          cardData: cardData,
+        });
+        const allCards = JSON.stringify({
+          cardData: allCard,
+        });
+      }
       if (nuwData) {
         setTableData(nuwData);
       }
@@ -54,36 +62,17 @@ function Gamebum() {
       const data2 = JSON.parse(data);
       setCartData(data2.myCard);
       const allCards = JSON.stringify(data2.allCards);
-      console.log("tt", JSON.parse(data));
+
       setAllCards(data2.allCards);
       socket.emit("NUMBER_CARDS", { roome, allCards });
     });
 
     socket.on("NUMBER_CARDS", (data) => {
-      console.log("gg", JSON.parse(data));
-      if (JSON.parse(data).length < allCard.length) {
-        setAllCards(JSON.parse(data));
-      }
+      setAllCards(JSON.parse(data));
     });
   };
 
-  useEffect(() => {
-    if (cardData.length < 6 && !condition) {
-      const amount = JSON.stringify({
-        index: cardData.length < 6 ? 6 - cardData.length : 0,
-        cardData: cardData,
-      });
-      const allCards = JSON.stringify({
-        cardData: allCard,
-      });
-
-      socket.emit("RECEIVE:CARDS", { roome, amount, allCards });
-    }
-  }, [allCard]);
-
   const getNewArr = (index) => {
-    console.log("maladec");
-    console.log("maladec1");
     if (index < 6) {
       const amount = JSON.stringify({
         index: cardData.length < 6 ? 6 - cardData.length : 0,
@@ -96,15 +85,23 @@ function Gamebum() {
       socket.emit("RECEIVE:CARDS", { roome, amount, allCards });
     }
   };
+  useEffect(() => {
+    getNewArr(cardData.length);
+  }, [allCard]);
+
+  useEffect(() => {
+    if (tableData.length === 0 && cardData.length < 6) {
+      getNewArr(cardData.length);
+    }
+  }, [tableData]);
 
   const tableClick = () => {
     if (selected && tableData.length !== 6) {
       socket.emit("TABLE:DATA", {
         roome,
-        tableData: JSON.stringify([
-          ...tableData,
-          { open: selected, closed: null },
-        ]),
+        tableData: JSON.stringify({
+          cards: [...tableData, { open: selected, closed: null }],
+        }),
       });
       setCartData(cardData.filter((item) => item.name !== selected.name));
     }
@@ -129,7 +126,7 @@ function Gamebum() {
 
     socket.emit("TABLE:DATA", {
       roome,
-      tableData: JSON.stringify(newdb),
+      tableData: JSON.stringify({ cards: [...newdb] }),
     });
 
     if (selected) {
@@ -160,7 +157,7 @@ function Gamebum() {
     }
     socket.emit("TABLE:DATA", {
       roome,
-      tableData: JSON.stringify([]),
+      tableData: JSON.stringify({ cards: [] }),
     });
   };
 
