@@ -32,6 +32,7 @@ function Gamebum() {
       setCartData(getData.myCard);
       setPrimary(getData.primary);
       setRandomCard(getData.random[0]);
+      console.log("mmmm", getData.random);
       setCondition(!data);
       // console.log(getData);
     });
@@ -60,7 +61,9 @@ function Gamebum() {
 
     socket.on("NUMBER_CARDS", (data) => {
       console.log("gg", JSON.parse(data));
-      setAllCards(JSON.parse(data));
+      if (JSON.parse(data).length < allCard.length) {
+        setAllCards(JSON.parse(data));
+      }
     });
   };
 
@@ -138,6 +141,7 @@ function Gamebum() {
   const clickCard = (data) => {
     setSelectedCard(data);
   };
+
   const surrender = () => {
     let newData = [];
     tableData.forEach(
