@@ -46,6 +46,18 @@ export const boxLeft = (index) => {
     case 20:
       box = 39.5;
       break;
+    case 21:
+      box = 40;
+      break;
+    case 22:
+      box = 40.5;
+      break;
+    case 23:
+      box = 41;
+      break;
+    case 24:
+      box = 41.5;
+      break;
     default:
   }
   return box;

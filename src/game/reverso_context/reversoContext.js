@@ -29,6 +29,7 @@ function Gamebum() {
     });
     socket.on("ROOM:SET_USERS", (data) => {
       const getData = JSON.parse(data);
+
       setCartData(getData.myCard);
       setPrimary(getData.primary);
       setRandomCard(getData.random[0]);
@@ -40,27 +41,29 @@ function Gamebum() {
 
       setAllCards(getData);
     });
-    socket.emit("TABLE:DATA", { roome, tableData: { cards: "null" } });
-    socket.on("TABLE:DATA", (data) => {
-      const nuwData = JSON.parse(data).data.cards;
-      if (JSON.parse(data).data.cards.length === 0 && cardData.length < 6) {
-        const amount = JSON.stringify({
-          index: cardData.length < 6 ? 6 - cardData.length : 0,
-          cardData: cardData,
-        });
-        const allCards = JSON.stringify({
-          cardData: allCard,
-        });
-      }
-      if (nuwData) {
-        setTableData(nuwData);
-      }
-    });
+    // socket.emit("TABLE:DATA", { roome, tableData: { cards: "null" } });
+    // socket.on("TABLE:DATA", (data) => {
+    //   const nuwData = JSON.parse(data).data.cards;
+    //   console.log(JSON.parse(data).data);
+
+    //   console.log("sss", primary);
+    //   if (nuwData) {
+    //     setTableData(nuwData);
+    //   }
+    //   if (JSON.parse(data).data.abit) {
+    //     setPrimary(!primary);
+    //   }
+    // });
     // socket.emit("NUMBER_OF_CARDS", { roome, allCard });
 
     socket.on("RECEIVE:CARDS", (data) => {
       const data2 = JSON.parse(data);
-      setCartData(data2.myCard);
+      const newArr = data2.myCard.filter((item) => item);
+      setCartData(data2.myCard.filter((item) => item));
+      console.log(newArr);
+      if (newArr.length === 0) {
+        alert("you won");
+      }
       const allCards = JSON.stringify(data2.allCards);
 
       setAllCards(data2.allCards);
@@ -71,6 +74,24 @@ function Gamebum() {
       setAllCards(JSON.parse(data));
     });
   };
+
+  useEffect(() => {
+    if (primary === true || primary === false) {
+      socket.emit("TABLE:DATA", { roome, tableData: { cards: "null" } });
+      socket.on("TABLE:DATA", (data) => {
+        const nuwData = JSON.parse(data).data.cards;
+        console.log(JSON.parse(data).data);
+
+        console.log("sss", primary);
+        if (nuwData) {
+          setTableData(nuwData);
+        }
+        if (JSON.parse(data).data.abit) {
+          setPrimary(!primary);
+        }
+      });
+    }
+  }, [primary]);
 
   const getNewArr = (index) => {
     if (index < 6) {
@@ -86,7 +107,10 @@ function Gamebum() {
     }
   };
   useEffect(() => {
-    getNewArr(cardData.length);
+    // console.log("shash");
+    if (allCard.length > 6) {
+      getNewArr(cardData.length);
+    }
   }, [allCard]);
 
   useEffect(() => {
@@ -111,7 +135,7 @@ function Gamebum() {
   const compare = (data, card) => {
     // const amount = JSON.stringify({ index: 6 });
 
-    if (isCardsSuitable(data, selected)) {
+    if (isCardsSuitable(data, selected, randomCard)) {
       return;
     }
 
@@ -154,6 +178,11 @@ function Gamebum() {
       }
       // primary;/////////
       getNewArr(cardData.length);
+      socket.emit("TABLE:DATA", {
+        roome,
+        tableData: JSON.stringify({ cards: [], abit: true }),
+      });
+      return;
     }
     socket.emit("TABLE:DATA", {
       roome,
