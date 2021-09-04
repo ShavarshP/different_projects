@@ -5,6 +5,7 @@ import styles from "./style.module.css";
 import { io } from "socket.io-client";
 import Form from "./step0ne";
 import { isCardsSuitable } from "./gameFunc";
+import Loading from "../../componet/loading/loading";
 
 const socket = io("http://shavarshgame.herokuapp.com");
 
@@ -18,11 +19,13 @@ function Gamebum() {
   const [primary, setPrimary] = useState(null);
   const [allCard, setAllCards] = useState([]);
   const [randomCard, setRandomCard] = useState("trefle_d");
+  const [loading, setLoading] = useState(false);
   const changeImput = (e) => {
     setRoom(e.target.value);
   };
 
   const submit = () => {
+    setLoading(true);
     socket.emit("ROOM:JOIN", {
       roomId: roome,
       userName: Math.floor(Math.random() * 10),
@@ -41,28 +44,14 @@ function Gamebum() {
 
       setAllCards(getData);
     });
-    // socket.emit("TABLE:DATA", { roome, tableData: { cards: "null" } });
-    // socket.on("TABLE:DATA", (data) => {
-    //   const nuwData = JSON.parse(data).data.cards;
-    //   console.log(JSON.parse(data).data);
-
-    //   console.log("sss", primary);
-    //   if (nuwData) {
-    //     setTableData(nuwData);
-    //   }
-    //   if (JSON.parse(data).data.abit) {
-    //     setPrimary(!primary);
-    //   }
-    // });
-    // socket.emit("NUMBER_OF_CARDS", { roome, allCard });
 
     socket.on("RECEIVE:CARDS", (data) => {
       const data2 = JSON.parse(data);
       const newArr = data2.myCard.filter((item) => item);
       setCartData(data2.myCard.filter((item) => item));
-      console.log(newArr);
+
       if (newArr.length === 0) {
-        alert("you won");
+        console.log("du krir");
       }
       const allCards = JSON.stringify(data2.allCards);
 
@@ -76,13 +65,16 @@ function Gamebum() {
   };
 
   useEffect(() => {
+    if (allCard.length === 0) {
+      console.log(randomCard);
+    }
+  }, [allCard]);
+
+  useEffect(() => {
     if (primary === true || primary === false) {
       socket.emit("TABLE:DATA", { roome, tableData: { cards: "null" } });
       socket.on("TABLE:DATA", (data) => {
         const nuwData = JSON.parse(data).data.cards;
-        console.log(JSON.parse(data).data);
-
-        console.log("sss", primary);
         if (nuwData) {
           setTableData(nuwData);
         }
@@ -107,7 +99,6 @@ function Gamebum() {
     }
   };
   useEffect(() => {
-    // console.log("shash");
     if (allCard.length > 6) {
       getNewArr(cardData.length);
     }
@@ -191,39 +182,45 @@ function Gamebum() {
   };
 
   return (
-    <>
-      <div className={styles.table}>
-        {condition ? (
-          <Form changeImput={changeImput} roome={roome} submit={submit} />
+    <div className={styles.gametable}>
+      <div>
+        <div className={styles.table}>
+          {condition ? (
+            loading ? (
+              <Loading />
+            ) : (
+              <Form changeImput={changeImput} roome={roome} submit={submit} />
+            )
+          ) : (
+            <>
+              <img
+                className={styles.imgTable}
+                src="https://media.istockphoto.com/photos/green-poker-table-background-picture-id643199720?k=6&m=643199720&s=170667a&w=0&h=a6gzxiCk7LHz-l1oDNsXfCcUQXkuIfdw9AV4KFroYqg="
+              />
+              <Cards
+                clickCard={clickCard}
+                compare={compare}
+                cardData={cardData}
+                tableClick={tableClick}
+                tableData={tableData}
+                primary={primary}
+                selected={selected}
+                img={randomCard.img_id ? randomCard.img_id : randomCard}
+              />
+            </>
+          )}
+        </div>
+        {!condition ? (
+          <div className={styles.box}>
+            <div onClick={surrender} className={styles.item}>
+              {!primary ? "to collect" : "bita"}
+            </div>
+          </div>
         ) : (
-          <>
-            <img
-              className={styles.imgTable}
-              src="https://media.istockphoto.com/photos/green-poker-table-background-picture-id643199720?k=6&m=643199720&s=170667a&w=0&h=a6gzxiCk7LHz-l1oDNsXfCcUQXkuIfdw9AV4KFroYqg="
-            />
-            <Cards
-              clickCard={clickCard}
-              compare={compare}
-              cardData={cardData}
-              tableClick={tableClick}
-              tableData={tableData}
-              primary={primary}
-              selected={selected}
-              img={randomCard.img_id ? randomCard.img_id : randomCard}
-            />
-          </>
+          ""
         )}
       </div>
-      {!condition ? (
-        <div className={styles.box}>
-          <div onClick={surrender} className={styles.item}>
-            {!primary ? "to collect" : "bita"}
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
-    </>
+    </div>
   );
 }
 
