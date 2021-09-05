@@ -53,20 +53,22 @@ export const MainTableCards = (data, compare, primary, selected) => {
     </div>
   ));
 };
-export const rival = (
-  data = ["", "", "", "", "", "", "", "", "", ""],
-  left
-) => {
-  return data.map((item, index) => (
-    <img
-      key={index}
-      className={styles.backImg}
-      style={{ left: -index * left + "px" }}
-      src={
-        "https://cdn-ru.bitrix24.ru/b16851/landing/822/822886adc607e9b079415036c2b14f60/Sinie_rombiki_1x.jpg"
-      }
-    />
-  ));
+export const rival = (length = 6, left) => {
+  let newData = [];
+  for (let index = 0; index < length; index++) {
+    const img = (
+      <img
+        key={index}
+        className={styles.backImg}
+        style={{ left: -index * left + "px" }}
+        src={
+          "https://cdn-ru.bitrix24.ru/b16851/landing/822/822886adc607e9b079415036c2b14f60/Sinie_rombiki_1x.jpg"
+        }
+      />
+    );
+    newData = [...newData, img];
+  }
+  return newData;
 };
 
 export const PleyerCards = (data, left, clickCard) => {

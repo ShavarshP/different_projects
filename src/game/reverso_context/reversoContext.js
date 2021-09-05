@@ -20,6 +20,8 @@ function Gamebum() {
   const [allCard, setAllCards] = useState([]);
   const [randomCard, setRandomCard] = useState("trefle_d");
   const [loading, setLoading] = useState(false);
+  const [cartLength, setCartLength] = useState(6);
+
   const changeImput = (e) => {
     setRoom(e.target.value);
   };
@@ -39,6 +41,10 @@ function Gamebum() {
 
       setCondition(!data);
     });
+    socket.on("SAY:SOMETHING", (data) => {
+      const getData = JSON.parse(data);
+      setCartLength(getData.data.cardsLength);
+    });
     socket.on("ROOM:SET_USERS_CARDS", (data) => {
       const getData = JSON.parse(data);
 
@@ -51,7 +57,7 @@ function Gamebum() {
       setCartData(data2.myCard.filter((item) => item));
 
       if (newArr.length === 0) {
-        console.log("du krir");
+        // console.log("du krir");
       }
       const allCards = JSON.stringify(data2.allCards);
 
@@ -66,7 +72,7 @@ function Gamebum() {
 
   useEffect(() => {
     if (allCard.length === 0) {
-      console.log(randomCard);
+      // console.log(randomCard);
     }
   }, [allCard]);
 
@@ -122,6 +128,14 @@ function Gamebum() {
     }
     setSelectedCard(null);
   };
+  useEffect(() => {
+    socket.emit("SAY:SOMETHING", {
+      roome,
+      data: JSON.stringify({
+        cardsLength: cardData.length,
+      }),
+    });
+  }, [cardData]);
 
   const compare = (data, card) => {
     // const amount = JSON.stringify({ index: 6 });
@@ -198,6 +212,7 @@ function Gamebum() {
                 src="https://media.istockphoto.com/photos/green-poker-table-background-picture-id643199720?k=6&m=643199720&s=170667a&w=0&h=a6gzxiCk7LHz-l1oDNsXfCcUQXkuIfdw9AV4KFroYqg="
               />
               <Cards
+                cartLength={cartLength}
                 clickCard={clickCard}
                 compare={compare}
                 cardData={cardData}

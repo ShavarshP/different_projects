@@ -5,6 +5,7 @@ import { CartClosed, MainTableCards, PleyerCards, rival } from "./getjsx";
 import styles from "./style.module.css";
 
 const Cards = ({
+  cartLength,
   clickCard,
   compare,
   cardData,
@@ -28,8 +29,9 @@ const Cards = ({
 
   const getjsx = (data, mainTableCards) => {
     // const newData = data.filter((item, index) => index < 10);
-    const left2 = boxLeft(10);
-    setRivalData(rival(["", "", "", "", "", "", "", "", "", ""], left2));
+    const left2 = boxLeft(cartLength);
+
+    setRivalData(rival(cartLength, left2));
   };
   const getData = async () => {
     try {
