@@ -18,9 +18,10 @@ function Gamebum() {
   const [cardData, setCartData] = useState([]);
   const [primary, setPrimary] = useState(null);
   const [allCard, setAllCards] = useState([]);
-  const [randomCard, setRandomCard] = useState("trefle_d");
+  const [randomCard, setRandomCard] = useState(false);
   const [loading, setLoading] = useState(false);
   const [cartLength, setCartLength] = useState(6);
+  const [takeRandom, setTakeRandom] = useState(false);
 
   const changeImput = (e) => {
     setRoom(e.target.value);
@@ -43,7 +44,11 @@ function Gamebum() {
     });
     socket.on("SAY:SOMETHING", (data) => {
       const getData = JSON.parse(data);
+
       setCartLength(getData.data.cardsLength);
+      if (getData.data.deleteRandom) {
+        setRandomCard(false);
+      }
     });
     socket.on("ROOM:SET_USERS_CARDS", (data) => {
       const getData = JSON.parse(data);
@@ -62,7 +67,11 @@ function Gamebum() {
       const allCards = JSON.stringify(data2.allCards);
 
       setAllCards(data2.allCards);
-      socket.emit("NUMBER_CARDS", { roome, allCards });
+      if (newArr.length < 6) {
+        setTakeRandom(true);
+      } else {
+        socket.emit("NUMBER_CARDS", { roome, allCards });
+      }
     });
 
     socket.on("NUMBER_CARDS", (data) => {
@@ -71,10 +80,18 @@ function Gamebum() {
   };
 
   useEffect(() => {
-    if (allCard.length === 0) {
-      // console.log(randomCard);
+    if (takeRandom) {
+      setCartData([...cardData, randomCard]);
+
+      setRandomCard(false);
+      socket.emit("SAY:SOMETHING", {
+        roome,
+        data: JSON.stringify({
+          deleteRandom: true,
+        }),
+      });
     }
-  }, [allCard]);
+  }, [takeRandom]);
 
   useEffect(() => {
     if (primary === true || primary === false) {
@@ -220,7 +237,7 @@ function Gamebum() {
                 tableData={tableData}
                 primary={primary}
                 selected={selected}
-                img={randomCard.img_id ? randomCard.img_id : randomCard}
+                img={randomCard ? randomCard.img_id : randomCard}
               />
             </>
           )}
