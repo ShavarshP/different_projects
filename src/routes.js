@@ -14,6 +14,7 @@ import CreatPost from "./page/blog/componet/createpost/createpost";
 import GamBam from "./game/2048";
 import Sudoku from "./game/sudoku/sudoku";
 import Auth from "./page/authentication/authPage";
+import Gamebum from "./game/reverso_context/reversoContext";
 
 export const useRoutes = (props) => {
   return (
@@ -53,6 +54,9 @@ export const useRoutes = (props) => {
       </Route>
       <Route path="/auth" exact>
         <Auth />
+      </Route>
+      <Route path="/reverso_context" exact>
+        <Gamebum />
       </Route>
       <Redirect from="/" to="/home" />
     </Switch>

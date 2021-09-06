@@ -4,7 +4,7 @@ import Gamebum from "./game/reverso_context/reversoContext";
 import { useRoutes } from "./routes";
 
 function App() {
-  return <Gamebum />;
+  return <Router>{useRoutes()}</Router>;
 }
 
 export default App;

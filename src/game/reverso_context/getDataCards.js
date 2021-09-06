@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { boxLeft } from "./boxLeft";
 import { CartClosed, MainTableCards, PleyerCards, rival } from "./getjsx";
 import styles from "./style.module.css";
@@ -14,8 +14,8 @@ const Cards = ({
   selected,
   img,
 }) => {
-  const [playerData, setPlayerData] = useState("mi ban");
-  const [tableCards, setTableCards] = useState("mi ban");
+  const [playerData, setPlayerData] = useState("null");
+  const [tableCards, setTableCards] = useState("null");
   const [rivalData, setRivalData] = useState(null);
 
   useEffect(() => {
